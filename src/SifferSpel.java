@@ -6,7 +6,7 @@ public class SifferSpel  extends JFrame {
 
 
 
-    
+
     public SifferSpel(){
 
     }
