@@ -23,6 +23,7 @@ public class Buttons extends JFrame {
                     button[i][j] = new JButton(String.valueOf(counter++));
                     pl.add(button[i][j]);
                     list.add(button[i][j]);
+                    button[i][j].addActionListener(new Eventhandler(button[i][j]));
                 } else {
                     button[i][j] = new JButton();
                     pl.add(button[i][j]);
