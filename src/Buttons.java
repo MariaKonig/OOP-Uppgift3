@@ -23,6 +23,7 @@ public class Buttons extends JFrame {
                     button[i][j] = new JButton(String.valueOf(counter++));
                     pl.add(button[i][j]);
                     list.add(button[i][j]);
+                    button[i][j].addActionListener(new Eventhandler(button[i][j],list,pl));
                 } else {
                     button[i][j] = new JButton();
                     pl.add(button[i][j]);
@@ -37,9 +38,7 @@ public class Buttons extends JFrame {
 
         pack();
         setVisible(true);
-
-
-
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -58,4 +57,10 @@ public class Buttons extends JFrame {
         pl.revalidate();
         return pl;
     }
+
+
+    public static void main(String[] args) {
+        Buttons b = new Buttons();
+    }
+
 }
