@@ -9,10 +9,11 @@ public class Buttons extends JFrame {
     JPanel pl = new JPanel();
     JPanel pl2 = new JPanel();
     JButton[][] button = new JButton[4][4];
-    JButton startButton = new JButton("Start");
+    JButton startButton = new JButton("Play");
     JButton resetButton = new JButton("Reset");
     JLabel message = new JLabel("<html>Grattis,<br/> du vann!</html>");
-    List<JButton> list = new ArrayList<JButton>();
+    List<JButton> list = new ArrayList<>();
+    GameLogic game = new GameLogic(pl, list, message, button);
 
     public Buttons() {
 
@@ -25,99 +26,19 @@ public class Buttons extends JFrame {
         pl2.add(resetButton);
         pl2.add(message);
         pl2.setLayout(new BoxLayout(pl2, BoxLayout.Y_AXIS));
+
         message.setVisible(false);
 
+        startButton.addActionListener(e -> game.shuffle());
+        resetButton.addActionListener(e -> game.resetButtons());
 
-        int counter = 1;
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (counter <= 15) {
-                    button[i][j] = new JButton(String.valueOf(counter++));
-                    pl.add(button[i][j]);
-                    list.add(button[i][j]);
-                    button[i][j].addActionListener(new Eventhandler(button[i][j], list, pl, message));
-                } else {
-                    button[i][j] = new JButton();
-                    pl.add(button[i][j]);
-                    list.add(button[i][j]);
-                }
-
-                button[i][j].setMargin(new Insets(0, 0, 0, 0));
-                button[i][j].setPreferredSize(new Dimension(50, 50));
-
-            }
-        }
-        colours();
-        startButton.addActionListener(e -> shuffle());
-        resetButton.addActionListener(e -> resetButtons());
+        game.resetButtons();
+        game.colours();
 
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    private void resetButtons() {
-        pl.removeAll();
-        list.clear();
-        message.setVisible(false);
-
-        int counter = 1;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (counter <= 15) {
-                    button[i][j] = new JButton(String.valueOf(counter++));
-                    list.add(button[i][j]);
-                    button[i][j].addActionListener(new Eventhandler(button[i][j], list, pl, message));
-                } else {
-                    button[i][j] = new JButton();
-                    list.add(button[i][j]);
-                }
-
-                button[i][j].setMargin(new Insets(0, 0, 0, 0));
-                button[i][j].setPreferredSize(new Dimension(50, 50));
-                pl.add(button[i][j]);
-            }
-        }
-        colours();
-
-        pl.repaint();
-        pl.revalidate();
-    }
-
-    private void shuffle() {
-
-        pl.removeAll();
-        Collections.shuffle(list);
-        message.setVisible(false);
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                button[i][j] = list.get(i * 4 + j);
-                pl.add(button[i][j]);
-            }
-        }
-        pl.repaint();
-        pl.revalidate();
-     }
-    private void colours(){
-        int counter = 1;
-        for(int i = 0; i <4; i++) {
-            for(int j = 0; j < 4; j++) {
-                counter++;
-                if( counter % 2 == 0) {
-                    button[i][j].setBackground(Color.BLACK);
-                    button[i][j].setForeground(Color.WHITE);
-                }
-                else {
-                    button[i][j].setBackground(Color.WHITE);
-                }
-
-            }
-            counter++;
-        }
-
     }
 
     public static void main(String[] args) {
