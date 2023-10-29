@@ -48,7 +48,7 @@ public class Buttons extends JFrame {
 
             }
         }
-
+        colours();
         startButton.addActionListener(e -> shuffle());
         resetButton.addActionListener(e -> resetButtons());
 
@@ -80,12 +80,13 @@ public class Buttons extends JFrame {
                 pl.add(button[i][j]);
             }
         }
+        colours();
 
         pl.repaint();
         pl.revalidate();
     }
 
-    private JPanel shuffle() {
+    private void shuffle() {
 
         pl.removeAll();
         Collections.shuffle(list);
@@ -99,7 +100,24 @@ public class Buttons extends JFrame {
         }
         pl.repaint();
         pl.revalidate();
-        return pl;
+     }
+    private void colours(){
+        int counter = 1;
+        for(int i = 0; i <4; i++) {
+            for(int j = 0; j < 4; j++) {
+                counter++;
+                if( counter % 2 == 0) {
+                    button[i][j].setBackground(Color.BLACK);
+                    button[i][j].setForeground(Color.WHITE);
+                }
+                else {
+                    button[i][j].setBackground(Color.WHITE);
+                }
+
+            }
+            counter++;
+        }
+
     }
 
     public static void main(String[] args) {
