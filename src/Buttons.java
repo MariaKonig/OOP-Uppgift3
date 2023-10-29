@@ -5,18 +5,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class Buttons extends JFrame {
-
     JPanel pl = new JPanel();
     JPanel pl2 = new JPanel();
     JButton[][] button = new JButton[4][4];
     JButton startButton = new JButton("Start");
     JButton resetButton = new JButton("Reset");
     List<JButton> list = new ArrayList<JButton>();
-
     public Buttons() {
 
         setLayout(new BorderLayout());
         pl.setLayout(new GridLayout(4, 4, 0, 0));
+
         add(pl, BorderLayout.CENTER);
         add(pl2, BorderLayout.EAST);
 
@@ -43,6 +42,7 @@ public class Buttons extends JFrame {
 
             }
         }
+        colours();
 
         startButton.addActionListener(e -> shuffle());
         resetButton.addActionListener(e -> resetButtons());
@@ -92,6 +92,24 @@ public class Buttons extends JFrame {
         pl.repaint();
         pl.revalidate();
         return pl;
+    }
+    private void colours(){
+        int counter = 1;
+        for(int i = 0; i <4; i++) {
+            for(int j = 0; j < 4; j++) {
+                counter++;
+                if( counter % 2 == 0) {
+                    button[i][j].setBackground(Color.BLACK);
+                    button[i][j].setForeground(Color.WHITE);
+                }
+                else {
+                    button[i][j].setBackground(Color.WHITE);
+                }
+
+            }
+            counter++;
+        }
+
     }
 
     public static void main(String[] args) {
