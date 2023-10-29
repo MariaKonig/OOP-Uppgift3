@@ -5,22 +5,28 @@ import java.util.Collections;
 import java.util.List;
 
 public class Buttons extends JFrame {
+
     JPanel pl = new JPanel();
     JPanel pl2 = new JPanel();
     JButton[][] button = new JButton[4][4];
     JButton startButton = new JButton("Start");
     JButton resetButton = new JButton("Reset");
+    JLabel message = new JLabel("<html>Grattis,<br/> du vann!</html>");
     List<JButton> list = new ArrayList<JButton>();
+
     public Buttons() {
 
         setLayout(new BorderLayout());
         pl.setLayout(new GridLayout(4, 4, 0, 0));
-
         add(pl, BorderLayout.CENTER);
         add(pl2, BorderLayout.EAST);
 
         pl2.add(startButton);
         pl2.add(resetButton);
+        pl2.add(message);
+        pl2.setLayout(new BoxLayout(pl2, BoxLayout.Y_AXIS));
+        message.setVisible(false);
+
 
         int counter = 1;
 
@@ -30,7 +36,7 @@ public class Buttons extends JFrame {
                     button[i][j] = new JButton(String.valueOf(counter++));
                     pl.add(button[i][j]);
                     list.add(button[i][j]);
-                    button[i][j].addActionListener(new Eventhandler(button[i][j],list,pl));
+                    button[i][j].addActionListener(new Eventhandler(button[i][j], list, pl, message));
                 } else {
                     button[i][j] = new JButton();
                     pl.add(button[i][j]);
@@ -43,7 +49,6 @@ public class Buttons extends JFrame {
             }
         }
         colours();
-
         startButton.addActionListener(e -> shuffle());
         resetButton.addActionListener(e -> resetButtons());
 
@@ -56,6 +61,7 @@ public class Buttons extends JFrame {
     private void resetButtons() {
         pl.removeAll();
         list.clear();
+        message.setVisible(false);
 
         int counter = 1;
         for (int i = 0; i < 4; i++) {
@@ -63,7 +69,7 @@ public class Buttons extends JFrame {
                 if (counter <= 15) {
                     button[i][j] = new JButton(String.valueOf(counter++));
                     list.add(button[i][j]);
-                    button[i][j].addActionListener(new Eventhandler(button[i][j], list, pl));
+                    button[i][j].addActionListener(new Eventhandler(button[i][j], list, pl, message));
                 } else {
                     button[i][j] = new JButton();
                     list.add(button[i][j]);
@@ -74,14 +80,17 @@ public class Buttons extends JFrame {
                 pl.add(button[i][j]);
             }
         }
+        colours();
 
         pl.repaint();
         pl.revalidate();
     }
-    private JPanel shuffle() {
+
+    private void shuffle() {
 
         pl.removeAll();
         Collections.shuffle(list);
+        message.setVisible(false);
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -91,8 +100,7 @@ public class Buttons extends JFrame {
         }
         pl.repaint();
         pl.revalidate();
-        return pl;
-    }
+     }
     private void colours(){
         int counter = 1;
         for(int i = 0; i <4; i++) {
@@ -115,5 +123,4 @@ public class Buttons extends JFrame {
     public static void main(String[] args) {
         Buttons b = new Buttons();
     }
-
 }
