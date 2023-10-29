@@ -78,8 +78,6 @@ public class Buttons extends JFrame {
         pl.repaint();
         pl.revalidate();
     }
-
-
     private JPanel shuffle() {
 
         pl.removeAll();
