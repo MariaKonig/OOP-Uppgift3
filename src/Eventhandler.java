@@ -13,7 +13,6 @@ public class Eventhandler implements ActionListener {
     JPanel pl;
     JLabel message;
     updateGame update = new updateGame();
-
     public Eventhandler(JButton pressedButton, List<JButton> list, JPanel panel, JLabel message) {
         button = pressedButton;
         this.list = list;
